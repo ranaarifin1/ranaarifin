@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Refleksi Cinta</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      padding: 30px;
+      line-height: 1.6;
+      color: #444;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.2);
+    }
+    .slide, .quiz, .form-pernyataan, .popup {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    .question-step {
+      display: none;
+    }
+    .question-step.active {
+      display: block;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 5px;
+      resize: vertical;
+    }
+    button {
+      padding: 10px 25px;
+      background-color: #ff69b4;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #e75494;
+    }
+    .popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+      z-index: 9999;
+    }
+    .popup.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body onbeforeunload="return 'Harap selesaikan kuis terlebih dahulu.'">
+  <div class="container">
+    <div id="slide1" class="slide active">
+      <p>Bosan bukan sekadar ingin hiburan. Mereka mungkin haus validasi, ingin merasa “diinginkan”. Jadi ketika seseorang datang dan mengisi celah kecil yang terabaikan, daya tariknya jadi besar.</p>
+      <p>Kata-kata dan rayuan yang bagi orang netral terasa biasa, bagi yang kesepian bisa terasa menyelamatkan.</p>
+      <button onclick="nextSlide(1)">Lanjut</button>
+    </div>
+
+    <div id="slide2" class="slide">
+      <p>Ilusi keindahan dari yang baru seringkali hanya karena belum menunjukkan luka, lelah, dan celah. Yang lama sudah terlalu sering hadir, hingga kehadirannya tidak lagi dirayakan.</p>
+      <p>Bosan bukan alasan untuk pergi, tapi ajakan untuk memperbaiki.</p>
+      <button onclick="startQuiz()">Mulai Pertanyaan</button>
+    </div>
+
+    <div id="quiz" class="quiz">
+      <form id="quizForm">
+        <div class="question-step active">
+          <div class="question">1. Menurut kamu, dalam hubungan yang sehat itu masing-masing harus berperan seperti apa?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">2. Kalau aku selalu berusaha memahami kamu, kira-kira apa yang bisa kamu lakukan untuk memahami aku juga?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">3. Kalau aku selalu nurut dan menghargai kamu, kamu juga bakal merasa wajar untuk melakukan hal yang sama ke aku?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">4. Apa arti "kebebasan" yang dimaksud?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">5. Saat kamu bilang ingin bebas dekat dengan yang lain, kamu sedang memperjuangkan hakmu... atau sedang lari dari tanggung jawab terhadap hubungan ini?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">6. Apa yang bisa aku lakukan supaya kamu merasa lebih nyaman untuk terbuka sama aku?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">7. Kalau kamu bisa jujur 100% tanpa takut disalahpahami, apa yang ingin kamu katakan?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">8. Apa kamu siap hidup dengan hasil dari semua keputusan yang kamu buat saat ini—termasuk jika aku memilih pergi?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <div class="question-step">
+          <div class="question">9. Kalau kamu bisa jujur ke dirimu sendiri — kamu lebih ingin menjaga hatiku, atau menjaga hasrat dan egomu sendiri?
+            <textarea required></textarea>
+          </div>
+        </div>
+        <button type="button" onclick="nextQuestion()">Lanjut</button>
+      </form>
+    </div>
+
+    <div id="formPernyataan" class="form-pernyataan">
+      <p><strong>SURAT PERNYATAAN</strong></p>
+      <p>yang bertanda tangan di bawah ini</p>
+      <p>Nama : Rina Karina</p>
+      <p>Jenis Kelamin : Perempuan</p>
+      <p>Alamat domisili: Bekasi Timur</p>
+      <p>Dengan ini menyatakan dengan sepenuh hati bahwa:</p>
+      <p>
+        Aku, Rina, menyatakan kesetiaanku yang tulus kepada kekasihku, Rana Arifin.<br/>
+        Aku berjanji akan selalu mencintai, menghargai, dan setia mendampingi Rana Arifin dalam suka maupun duka.<br/>
+        Apapun yang terjadi, aku akan tetap berada di sisinya, menjaga kepercayaan, dan berusaha menjadi yang terbaik untuknya.<br/>
+        Pernyataan ini aku buat dengan sepenuh hati, tanpa ada paksaan dari pihak mana pun.<br/><br/>
+        Demikian surat pernyataan ini aku buat sebagai bentuk komitmen dan bukti cintaku.
+      </p>
+      <p>TTD elektronik atas nama:</p>
+      <input type="text" id="ttd" required placeholder="Tulis: Rina Karina" />
+      <button onclick="selesaiKuis()">Selesai</button>
+    </div>
+  </div>
+
+  <script>
+    function nextSlide(num) {
+      document.getElementById('slide' + num).classList.remove('active');
+      document.getElementById('slide' + (num + 1)).classList.add('active');
+    }
+
+    function startQuiz() {
+      document.getElementById('slide2').classList.remove('active');
+      document.getElementById('quiz').classList.add('active');
+    }
+
+    let currentQuestion = 0;
+    const questionSteps = document.querySelectorAll('.question-step');
+
+    function nextQuestion() {
+      const current = questionSteps[currentQuestion];
+      const textarea = current.querySelector('textarea');
+
+      if (!textarea.value.trim()) {
+        alert('Isi dulu ya sayang');
+        return;
+      }
+
+      current.classList.remove('active');
+      currentQuestion++;
+
+      if (currentQuestion < questionSteps.length) {
+        questionSteps[currentQuestion].classList.add('active');
+      } else {
+        showFormPernyataan();
+      }
+    }
+
+    function showFormPernyataan() {
+      document.getElementById('quiz').classList.remove('active');
+      document.getElementById('formPernyataan').classList.add('active');
+    }
+
+    function selesaiKuis() {
+      const ttd = document.getElementById('ttd').value.trim();
+      if (ttd.toLowerCase() !== 'rina karina') {
+        alert('Nama TTD harus nama kamu sayang🤭');
+        return;
+      }
+
+      const answers = document.querySelectorAll('#quizForm textarea');
+      let pesan = '*Jawaban dan pernyataan*\n\n';
+      answers.forEach((textarea, i) => {
+        pesan += `*Jawaban ${i + 1}:* ${textarea.value}\n\n`;
+      });
+
+      const now = new Date();
+      const waktu = now.toLocaleString('id-ID');
+      pesan += `*PERNYATAAN:*
+*SAYA RINA KARINA MELALUI PESAN WHATSAPP INI :*
+*MENYATAKAN KESETIAANKU YANG TULUS KEPADA KEKASIHKU, RANA ARIFIN. AKU BERJANJI AKAN SELALU MENCINTAI, MENGHARGAI, DAN SETIA MENDAMPINGI RANA ARIFIN DALAM SUKA MAUPUN DUKA. APAPUN YANG TERJADI, AKU AKAN TETAP BERADA DI SISINYA, MENJAGA KEPERCAYAAN, DAN BERUSAHA MENJADI YANG TERBAIK UNTUKNYA. PERNYATAAN INI AKU BUAT DENGAN SEPENUH HATI, TANPA ADA PAKSAAN DARI PIHAK MANA PUN.*
+
+*DEMIKIAN PERNYATAAN INI AKU BUAT SEBAGAI BENTUK KOMITMEN DAN BUKTI CINTAKU❤️.*.\n`;
+      pesan += `*TTD:* *${ttd}*\n`;
+      pesan += `*Tanggal & Waktu:* ${waktu}`;
+
+      const encodedMessage = encodeURIComponent(pesan);
+      const whatsappNumber = '6285871873041';
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+</body>
+</html>
